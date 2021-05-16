@@ -5,7 +5,7 @@ import (
 	"syreclabs.com/go/faker"
 )
 
-func handleUsers() []User {
+func createUsers() []User {
 	var users []User
 	for i := 1; i <= 5; i++ {
 		newUser := User{
@@ -20,7 +20,7 @@ func handleUsers() []User {
 	return users
 }
 
-func handleCars() []Car {
+func createCars() []Car {
 	var cars []Car
 	for i := 1; i <= 5; i++ {
 
@@ -36,7 +36,7 @@ func handleCars() []Car {
 	return cars
 }
 
-func handleParkings() []Parking {
+func createParkings() []Parking {
 	var parkings []Parking
 	for i := 1; i <= 10; i++ {
 		newParking := Parking{
@@ -54,6 +54,23 @@ func handleParkings() []Parking {
 		parkings = append(parkings, newParking)
 	}
 	return parkings
+}
+
+func createBookings() []Booking {
+	var bookings []Booking
+	for i := 1; i <= 15; i++ {
+		newBooking := Booking{
+			Id: strconv.Itoa(i),
+			StartDate: faker.Date().Forward(100000),
+			EndDate: faker.Date().Forward(100000),
+			StartTime: faker.Time().Forward(100000),
+			EndTime: faker.Time().Forward(100000),
+			Car: faker.Number().Between(1, 5),
+			Parking: faker.Number().Between(1, 10),
+		}
+		bookings = append(bookings, newBooking)
+	}
+	return bookings
 }
 
 // func findUser(id int) User {
