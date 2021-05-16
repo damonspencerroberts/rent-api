@@ -5,16 +5,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 type User struct {
-	Id string `json: "id"`
-	FirstName string `json: "firstName"`
-	LastName string `json: "last_name"`
-	Email string `json: "email"`
-	PhoneNumber string `json: "phone_number"`
+	Id string `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName string `json:"last_name"`
+	Email string `json:"email"`
+	PhoneNumber string `json:"phone_number"`
 }
 
 var Users []User
@@ -25,9 +23,8 @@ func returnAllUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func returnSingleUser(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	key := vars["id"]
-
+	fmt.Println("Endpoint Hit: returnSingleUser")
+	key := getParams(r)
 	for _, user := range Users {
 		if user.Id == key {
 			json.NewEncoder(w).Encode(user)
@@ -36,6 +33,8 @@ func returnSingleUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func createNewUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: createNewUser")
+
 	// get the body of our POST request
   // unmarshal this into a new Article struct
 	// append this to our Articles array.
@@ -50,8 +49,8 @@ func createNewUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateUser(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	fmt.Println("Endpoint Hit: updateUser")
+	id := getParams(r)
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var user User
 	json.Unmarshal(reqBody, &user)
@@ -64,11 +63,8 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteUser(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	//this gets the params
-	id := vars["id"]
-	//unique id from the params
-
+	fmt.Println("Endpoint Hit: deleteUser")
+	id := getParams(r)
 	for i, u := range Users {
 		//for all the users find the one looking for and remove
 		if u.Id == id {
