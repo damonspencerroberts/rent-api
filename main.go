@@ -8,7 +8,7 @@ import (
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the home page!")
+	fmt.Fprintf(w, "Welcome to the Car Sharing API!")
 	fmt.Println("Endpoint hit: Homepage")
 }
 
@@ -17,11 +17,20 @@ func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 
 	myRouter.HandleFunc("/", homePage)
+
+	// Users
 	myRouter.HandleFunc("/api/users", returnAllUsers)
 	myRouter.HandleFunc("/api/user", createNewUser).Methods("POST")
 	myRouter.HandleFunc("/api/user/{id}", deleteUser).Methods("DELETE")
 	myRouter.HandleFunc("/api/user/{id}", updateUser).Methods("PUT")
 	myRouter.HandleFunc("/api/user/{id}", returnSingleUser)
+
+	// Cars
+	myRouter.HandleFunc("/api/cars", returnAllCars)
+	myRouter.HandleFunc("/api/car", createNewCar).Methods("POST")
+	myRouter.HandleFunc("/api/car/{id}", deleteCar).Methods("DELETE")
+	myRouter.HandleFunc("/api/car/{id}", updateCar).Methods("PUT")
+	myRouter.HandleFunc("/api/car/{id}", returnSingleCar)
 
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
@@ -29,5 +38,6 @@ func handleRequests() {
 func main() {
 	fmt.Println("Rest api v2 - Mux Routers")
 	Users = handleUsers()
+	Cars = handleCars()
 	handleRequests()
 }
