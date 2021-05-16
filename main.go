@@ -17,41 +17,12 @@ func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 
 	myRouter.HandleFunc("/", homePage)
-
-	// Users
-	myRouter.HandleFunc("/api/users", returnAllUsers)
-	myRouter.HandleFunc("/api/user", createNewUser).Methods("POST")
-	myRouter.HandleFunc("/api/user/{id}", deleteUser).Methods("DELETE")
-	myRouter.HandleFunc("/api/user/{id}", updateUser).Methods("PUT")
-	myRouter.HandleFunc("/api/user/{id}", returnSingleUser)
-
-	// Cars
-	myRouter.HandleFunc("/api/cars", returnAllCars)
-	myRouter.HandleFunc("/api/car", createNewCar).Methods("POST")
-	myRouter.HandleFunc("/api/car/{id}", deleteCar).Methods("DELETE")
-	myRouter.HandleFunc("/api/car/{id}", updateCar).Methods("PUT")
-	myRouter.HandleFunc("/api/car/{id}", returnSingleCar)
-
-	// Parkings
-	myRouter.HandleFunc("/api/parkings", returnAllParkings)
-	myRouter.HandleFunc("/api/parking", createNewParking).Methods("POST")
-	myRouter.HandleFunc("/api/parking/{id}", deleteParking).Methods("DELETE")
-	myRouter.HandleFunc("/api/parking/{id}", updateParking).Methods("PUT")
-	myRouter.HandleFunc("/api/parking/{id}", returnSingleParking)
-
-	// Bookings
-	myRouter.HandleFunc("/api/bookings", returnAllBookings)
-	myRouter.HandleFunc("/api/booking", createNewBooking).Methods("POST")
-	myRouter.HandleFunc("/api/booking/{id}", deleteBooking).Methods("DELETE")
-	myRouter.HandleFunc("/api/booking/{id}", updateBooking).Methods("PUT")
-	myRouter.HandleFunc("/api/booking/{id}", returnSingleBooking)
-
-	// Reviews
-	myRouter.HandleFunc("/api/parking/{parking_id}/reviews", returnAllReviews)
-	myRouter.HandleFunc("/api/parking/{parking_id}/review", createNewReview).Methods("POST")
-	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", deleteReview).Methods("DELETE")
-	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", updateReview).Methods("PUT")
-	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", returnSingleReview)
+	
+	userRoutes(myRouter)
+	bookingRoutes(myRouter)
+	parkingRoutes(myRouter)
+	carRoutes(myRouter)
+	reviewRoutes(myRouter)
 
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
