@@ -32,6 +32,13 @@ func handleRequests() {
 	myRouter.HandleFunc("/api/car/{id}", updateCar).Methods("PUT")
 	myRouter.HandleFunc("/api/car/{id}", returnSingleCar)
 
+	// Parkings
+	myRouter.HandleFunc("/api/parkings", returnAllParkings)
+	myRouter.HandleFunc("/api/parking", createNewParking).Methods("POST")
+	myRouter.HandleFunc("/api/parking/{id}", deleteParking).Methods("DELETE")
+	myRouter.HandleFunc("/api/parking/{id}", updateParking).Methods("PUT")
+	myRouter.HandleFunc("/api/parking/{id}", returnSingleParking)
+
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
 
@@ -39,5 +46,6 @@ func main() {
 	fmt.Println("Rest api v2 - Mux Routers")
 	Users = handleUsers()
 	Cars = handleCars()
+	Parkings = handleParkings()
 	handleRequests()
 }
