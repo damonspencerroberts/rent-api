@@ -1,19 +1,39 @@
 package main
 
+import (
+	"strconv"
+	"syreclabs.com/go/faker"
+)
+
 func handleUsers() []User {
-	return []User{
-		User{Id: "1", FirstName: "John", LastName: "Doe", Email: "john@gmail.com", PhoneNumber: "07644655293"},
-		User{Id: "2", FirstName: "Melanie", LastName: "Smith", Email: "ms10101@aol.com", PhoneNumber: "1474558011"},
-		User{Id: "3", FirstName: "Leonardo", LastName: "DiCaprio", Email: "leo@dicap.com", PhoneNumber: "2123459862"},
+	var users []User
+	for i := 0; i <= 5; i++ {
+		newUser := User{
+			Id: strconv.Itoa(i),
+			FirstName: faker.Name().FirstName(),
+			LastName: faker.Name().LastName(),
+			Email: faker.Internet().Email(),
+			PhoneNumber: faker.PhoneNumber().CellPhone(),
+		}
+		users = append(users, newUser)
 	}
+	return users
 }
 
 func handleCars() []Car {
-	return []Car{
-		Car{Id: "1", Model: "Mazda N5", Color: "Red", Plate: "4C4-4567", User: "1"},
-		Car{Id: "2", Model: "Alfa Romeo Giulia", Color: "Black", Plate: "548-7781", User: "2"},
-		Car{Id: "3", Model: "Toyota Corolla", Color: "Grey", Plate: "657-2HHM", User: "3"},
+	var cars []Car
+	for i := 1; i <= 5; i++ {
+
+		newCar := Car{
+			Id: strconv.Itoa(i),
+			Model: faker.Lorem().Word(),
+			Color: faker.Commerce().Color(),
+			Plate: faker.Company().Ein(),
+			User: faker.Number().Positive(5),
+		}
+		cars = append(cars, newCar)
 	}
+	return cars
 }
 
 // func findUser(id int) User {
