@@ -46,6 +46,13 @@ func handleRequests() {
 	myRouter.HandleFunc("/api/booking/{id}", updateBooking).Methods("PUT")
 	myRouter.HandleFunc("/api/booking/{id}", returnSingleBooking)
 
+	// Reviews
+	myRouter.HandleFunc("/api/parking/{parking_id}/reviews", returnAllReviews)
+	myRouter.HandleFunc("/api/parking/{parking_id}/review", createNewReview).Methods("POST")
+	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", deleteReview).Methods("DELETE")
+	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", updateReview).Methods("PUT")
+	myRouter.HandleFunc("/api/parking/{parking_id}/review/{id}", returnSingleReview)
+
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
 
@@ -55,5 +62,6 @@ func main() {
 	Cars = createCars()
 	Parkings = createParkings()
 	Bookings = createBookings()
+	Reviews = createReviews()
 	handleRequests()
 }

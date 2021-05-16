@@ -24,7 +24,7 @@ func returnAllCars(w http.ResponseWriter, r *http.Request) {
 
 func returnSingleCar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: returnSingleCar")
-	key := getParams(r)
+	key := getParams(r, "id")
 	for _, car := range Cars {
 		if car.Id == key {
 			json.NewEncoder(w).Encode(car)
@@ -43,7 +43,7 @@ func createNewCar(w http.ResponseWriter, r *http.Request) {
 
 func updateCar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: updateCar")
-	id := getParams(r)
+	id := getParams(r, "id")
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var car Car
 	json.Unmarshal(reqBody, &car)
@@ -56,7 +56,7 @@ func updateCar(w http.ResponseWriter, r *http.Request) {
 
 func deleteCar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: deleteCars")
-	id := getParams(r)
+	id := getParams(r, "id")
 	for i, u := range Cars {
 		if u.Id == id {
 			Cars = append(Cars[:i], Cars[i+1:]...)

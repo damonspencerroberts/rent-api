@@ -24,7 +24,7 @@ func returnAllUsers(w http.ResponseWriter, r *http.Request) {
 
 func returnSingleUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: returnSingleUser")
-	key := getParams(r)
+	key := getParams(r, "id")
 	for _, user := range Users {
 		if user.Id == key {
 			json.NewEncoder(w).Encode(user)
@@ -50,7 +50,7 @@ func createNewUser(w http.ResponseWriter, r *http.Request) {
 
 func updateUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: updateUser")
-	id := getParams(r)
+	id := getParams(r, "id")
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var user User
 	json.Unmarshal(reqBody, &user)
@@ -64,7 +64,7 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 
 func deleteUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: deleteUser")
-	id := getParams(r)
+	id := getParams(r, "id")
 	for i, u := range Users {
 		//for all the users find the one looking for and remove
 		if u.Id == id {

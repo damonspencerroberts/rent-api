@@ -73,6 +73,21 @@ func createBookings() []Booking {
 	return bookings
 }
 
+func createReviews() []Review {
+	var reviews []Review
+	for i := 1; i <= 12; i++ {
+		newReview := Review{
+			Id: strconv.Itoa(i),
+			Title: faker.Lorem().Sentence(3),
+			Content: faker.Lorem().Paragraph(5),
+			Stars: faker.Number().Between(0, 5),
+			Parking: faker.Number().Between(1, 10),
+		}
+		reviews = append(reviews, newReview)
+	}
+	return reviews
+}
+
 // func findUser(id int) User {
 // 	newId := strconv.Itoa(id)
 // 	var foundUser User

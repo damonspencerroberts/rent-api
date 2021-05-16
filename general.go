@@ -6,10 +6,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func getParams(r *http.Request) string {
+func getParams(r *http.Request, str string) string {
 	//this gets the params
 	//unique id from the params
 	vars := mux.Vars(r)
-	key := vars["id"]
+	key := vars[str]
 	return key
 }

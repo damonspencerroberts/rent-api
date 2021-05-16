@@ -27,7 +27,7 @@ func returnAllBookings(w http.ResponseWriter, r *http.Request) {
 
 func returnSingleBooking(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: returnSingleBooking")
-	key := getParams(r)
+	key := getParams(r, "id")
 	for _, booking := range Bookings {
 		if booking.Id == key {
 			json.NewEncoder(w).Encode(booking)
@@ -46,7 +46,7 @@ func createNewBooking(w http.ResponseWriter, r *http.Request) {
 
 func updateBooking(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: updateBooking")
-	id := getParams(r)
+	id := getParams(r, "id")
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var booking Booking
 	json.Unmarshal(reqBody, &booking)
@@ -59,7 +59,7 @@ func updateBooking(w http.ResponseWriter, r *http.Request) {
 
 func deleteBooking(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: deleteBooking")
-	id := getParams(r)
+	id := getParams(r, "id")
 	for i, u := range Bookings {
 		if u.Id == id {
 			Bookings = append(Bookings[:i], Bookings[i+1:]...)
